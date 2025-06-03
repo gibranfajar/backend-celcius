@@ -48,6 +48,7 @@
     {{-- sortable js untuk drag and drop image --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
 
+
 </head>
 
 <body>
@@ -71,6 +72,7 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
+
 
     {{-- Cek jika ada session success --}}
     @if (session('success'))

@@ -32,8 +32,6 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Master</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -42,8 +40,6 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $category->name }}</td>
-                                            <td>{{ Str::ucfirst($category->type) }}</td>
-                                            <td>{{ Str::ucfirst($category->master) }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                                     data-bs-target="#editCategoryModal{{ $category->id }}">Edit</button>
@@ -71,23 +67,8 @@
                         <form action="{{ route('categories.store') }}" method="POST">
                             @csrf
                             <div class="mb-3">
-                                <label for="name" class="form-label">Category Name</label>
+                                <label for="name" class="form-label">Category</label>
                                 <input type="text" name="name" class="form-control" id="name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="type" class="form-label">Type</label>
-                                <select name="type" class="form-select" id="type">
-                                    <option value="man">Man</option>
-                                    <option value="woman">Woman</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="type" class="form-label">Master</label>
-                                <select name="master" class="form-select" id="master">
-                                    <option value="apparel">Apparel</option>
-                                    <option value="accessories">Accessories</option>
-                                    <option value="footwear">Footwear</option>
-                                </select>
                             </div>
                             <div class="mb-3 d-flex justify-content-end gap-2">
                                 <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Close</button>
@@ -118,26 +99,6 @@
                                     <label for="name{{ $category->id }}" class="form-label">Category Name</label>
                                     <input type="text" name="name" class="form-control" id="name{{ $category->id }}"
                                         value="{{ $category->name }}" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="type" class="form-label">Type</label>
-                                    <select name="type" class="form-select" id="type">
-                                        <option value="man" {{ $category->type == 'man' ? 'selected' : '' }}>Man
-                                        </option>
-                                        <option value="woman" {{ $category->type == 'woman' ? 'selected' : '' }}>Woman
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="type" class="form-label">Master</label>
-                                    <select name="master" class="form-select" id="master">
-                                        <option value="apparel" {{ $category->master == 'apparel' ? 'selected' : '' }}>
-                                            Apparel</option>
-                                        <option value="accessories"
-                                            {{ $category->master == 'accessories' ? 'selected' : '' }}>Accessories</option>
-                                        <option value="footwear" {{ $category->master == 'footwear' ? 'selected' : '' }}>
-                                            Footwear</option>
-                                    </select>
                                 </div>
                                 <div class="mb-3 d-flex justify-content-end gap-2">
                                     <button type="button" class="btn btn-danger btn-sm"

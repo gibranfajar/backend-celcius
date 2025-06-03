@@ -35,7 +35,8 @@
                                 <div class="d-flex justify-content-center gap-2 mb-3">
                                     <div class="col-md-6">
                                         <label for="name" class="form-label">Collection Name</label>
-                                        <input type="text" name="name" class="form-control" id="name" required>
+                                        <input type="text" name="name" class="form-control" id="name"
+                                            value="{{ old('name') }}" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="category" class="form-label">Category</label>

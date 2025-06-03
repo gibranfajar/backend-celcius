@@ -60,6 +60,8 @@
                                 <div class="mb-3">
                                     <label for="thumbnail">Image Thumbnail Slider</label>
                                     <input type="file" name="thumbnail" class="form-control" id="thumbnail">
+                                    <small class="text-danger fst-italic" style="font-size: 12px">Fill in if you want to
+                                        change it</small>
                                     <img id="preview" width="250" class="mt-2">
                                 </div>
 
@@ -68,6 +70,8 @@
                                     <div class="form-group">
                                         <input id="image" type="file" name="image[]" multiple class="form-control">
                                     </div>
+                                    <small class="text-danger fst-italic" style="font-size: 12px">Fill in if you want to
+                                        change it</small>
                                     <div id="imagePreview" class="row"></div>
                                 </div>
 

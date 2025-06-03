@@ -14,9 +14,17 @@ class PageHomeController extends Controller
     public function index()
     {
         $title = "Page Homes";
-        $data = PageHome::find(1);
+        $data = PageHome::where('type', 'men')->first();
 
-        return view('pagehomes', compact('title', 'data'));
+        return view('pagehomes.pagehomes', compact('title', 'data'));
+    }
+
+    public function woman()
+    {
+        $title = "Page Homes Woman";
+        $data = PageHome::where('type', 'women')->first();
+
+        return view('pagehomes.woman', compact('title', 'data'));
     }
 
     /**
@@ -33,20 +41,12 @@ class PageHomeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title_bannertop' => 'required',
+            'title' => 'required',
             'bannertop_desktop_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'bannertop_mobile_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'toptitleurl_left' => 'required',
-            'topurl_left' => 'required',
-            'toptitleurl_right' => 'required',
-            'topurl_right' => 'required',
-            'title_bannerbottom' => 'required',
             'bannerbottom_desktop_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'bannerbottom_mobile_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'bottomtitleurl_left' => 'required',
-            'bottomurl_left' => 'required',
-            'bottomtitleurl_right' => 'required',
-            'bottomurl_right' => 'required',
+            'type' => 'required'
         ]);
 
         if ($request->hasFile('bannertop_desktop_image')) {
@@ -63,20 +63,12 @@ class PageHomeController extends Controller
         }
 
         PageHome::create([
-            'title_bannertop' => $request->title_bannertop,
+            'title' => $request->title,
             'bannertop_desktop_image' => $bannertop_desktop_image,
             'bannertop_mobile_image' => $bannertop_mobile_image,
-            'toptitleurl_left' => $request->toptitleurl_left,
-            'topurl_left' => $request->topurl_left,
-            'toptitleurl_right' => $request->toptitleurl_right,
-            'topurl_right' => $request->topurl_right,
-            'title_bannerbottom' => $request->title_bannerbottom,
             'bannerbottom_desktop_image' => $bannerbottom_desktop_image,
             'bannerbottom_mobile_image' => $bannerbottom_mobile_image,
-            'bottomtitleurl_left' => $request->bottomtitleurl_left,
-            'bottomurl_left' => $request->bottomurl_left,
-            'bottomtitleurl_right' => $request->bottomtitleurl_right,
-            'bottomurl_right' => $request->bottomurl_right,
+            'type' => $request->type
         ]);
 
         return redirect()->route('pagehomes.index')->with('success', 'Page Home created successfully');
@@ -104,21 +96,12 @@ class PageHomeController extends Controller
     public function update(Request $request, PageHome $pageHome)
     {
         $request->validate([
-            'id' => 'required',
-            'title_bannertop' => 'required',
-            'bannertop_desktop_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'bannertop_mobile_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'toptitleurl_left' => 'required',
-            'topurl_left' => 'required',
-            'toptitleurl_right' => 'required',
-            'topurl_right' => 'required',
-            'title_bannerbottom' => 'required',
-            'bannerbottom_desktop_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'bannerbottom_mobile_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'bottomtitleurl_left' => 'required',
-            'bottomurl_left' => 'required',
-            'bottomtitleurl_right' => 'required',
-            'bottomurl_right' => 'required',
+            'title' => 'required',
+            'bannertop_desktop_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'bannertop_mobile_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'bannerbottom_desktop_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'bannerbottom_mobile_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'type' => 'required'
         ]);
 
         $dataLama = PageHome::find($request->id);
@@ -141,20 +124,12 @@ class PageHomeController extends Controller
         }
 
         PageHome::where('id', $request->id)->update([
-            'title_bannertop' => $request->title_bannertop,
-            'bannertop_desktop_image' => $bannertop_desktop_image ?? $dataLama->bannertop_desktop_image,
-            'bannertop_mobile_image' => $bannertop_mobile_image ?? $dataLama->bannertop_mobile_image,
-            'toptitleurl_left' => $request->toptitleurl_left,
-            'topurl_left' => $request->topurl_left,
-            'toptitleurl_right' => $request->toptitleurl_right,
-            'topurl_right' => $request->topurl_right,
-            'title_bannerbottom' => $request->title_bannerbottom,
-            'bannerbottom_desktop_image' => $bannerbottom_desktop_image ?? $dataLama->bannerbottom_desktop_image,
-            'bannerbottom_mobile_image' => $bannerbottom_mobile_image ?? $dataLama->bannerbottom_mobile_image,
-            'bottomtitleurl_left' => $request->bottomtitleurl_left,
-            'bottomurl_left' => $request->bottomurl_left,
-            'bottomtitleurl_right' => $request->bottomtitleurl_right,
-            'bottomurl_right' => $request->bottomurl_right,
+            'title' => $request->title,
+            'bannertop_desktop_image' => $bannertop_desktop_image,
+            'bannertop_mobile_image' => $bannertop_mobile_image,
+            'bannerbottom_desktop_image' => $bannerbottom_desktop_image,
+            'bannerbottom_mobile_image' => $bannerbottom_mobile_image,
+            'type' => $request->type
         ]);
 
         return redirect()->route('pagehomes.index')->with('success', 'Page Home updated successfully');

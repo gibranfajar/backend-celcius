@@ -95,9 +95,9 @@ class CollectionController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required',
-            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category' => 'required'
         ]);
 

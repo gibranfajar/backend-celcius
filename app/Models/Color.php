@@ -8,8 +8,5 @@ class Color extends Model
 {
     protected $table = 'colors';
 
-    protected $fillable = [
-        'color',
-        'image',
-    ];
+    protected $guarded = [];
 }

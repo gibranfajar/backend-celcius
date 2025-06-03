@@ -41,14 +41,19 @@
                                         <tr class="align-middle">
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $color->color }}</td>
-                                            <td><img src="{{ asset('storage/' . $color->image) }}" alt="{{ $color->color }}"
-                                                    class="img-fluid border" width="50"></td>
+                                            <td>
+                                                <div class="w-100 p-2 rounded border"
+                                                    style="background-color: {{ $color->palette }}; color: silver; max-width: 100px;">
+                                                    {{ $color->palette }}
+                                                </div>
+                                            </td>
                                             <td>
                                                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                                     data-bs-target="#editCategoryModal{{ $color->id }}">Edit</button>
                                             </td>
                                         </tr>
                                     @endforeach
+
                                 </tbody>
                             </table>
                         </div>
@@ -57,37 +62,37 @@
             </div>
         </section>
 
-        <!-- Modal for Add Category -->
+        <!-- Modal Add Color -->
         <div class="modal fade" id="addColorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="addColorModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <form action="{{ route('colors.store') }}" method="POST" class="modal-content">
+                    @csrf
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="addColorModalLabel">Add Color</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title fs-5">Add Color</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('colors.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="color" class="form-label">Color Name</label>
-                                <input type="text" name="color" class="form-control" id="color" required>
-                            </div>
+                        <div class="mb-3">
+                            <label for="color_add" class="form-label">Color Name</label>
+                            <input type="text" name="color" class="form-control" id="color_add" required>
+                        </div>
 
-                            <div class="input-group mb-3">
-                                <input type="file" name="image" class="form-control" id="image" required>
-                                <img class="imagePreviewEdit img-thumbnail" width="40" />
-                            </div>
-
-                            <div class="mb-3 d-flex justify-content-end gap-2">
-                                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary btn-sm">Save</button>
-                            </div>
-                        </form>
+                        <div class="input-group mb-3">
+                            <input type="color" name="pallet_picker" value="#ff0000" id="pallet_picker_add"
+                                class="form-control form-control-color" style="max-width: 60px;">
+                            <input type="text" name="palette" class="form-control" id="palette_add" value="#ff0000"
+                                required>
+                        </div>
                     </div>
-                </div>
+                    <div class="modal-footer d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                    </div>
+                </form>
             </div>
         </div>
+
 
         <!-- Modal for Edit Category -->
         @foreach ($data as $color)
@@ -95,57 +100,72 @@
                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="editCategoryModalLabel{{ $color->id }}"
                 aria-hidden="true">
                 <div class="modal-dialog">
-                    <div class="modal-content">
+                    <form action="{{ route('colors.update', $color->id) }}" method="POST" class="modal-content">
+                        @csrf
+                        @method('PUT')
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="editCategoryModalLabel{{ $color->id }}">Edit Color</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h1 class="modal-title fs-5">Edit Color</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('colors.update', $color->id) }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-                                <div class="mb-3">
-                                    <label for="color" class="form-label">Color Name</label>
-                                    <input type="text" name="color" class="form-control" id="color"
-                                        value="{{ $color->color }}" required>
-                                </div>
+                            <div class="mb-3">
+                                <label for="color_{{ $color->id }}" class="form-label">Color Name</label>
+                                <input type="text" name="color" class="form-control" id="color_{{ $color->id }}"
+                                    value="{{ $color->color }}" required>
+                            </div>
 
-                                <div class="input-group mb-3">
-                                    <input type="file" name="image" class="form-control" id="image" required>
-                                    <img class="imagePreviewEdit img-thumbnail" width="40" />
-                                </div>
-
-
-                                <div class="mb-3 d-flex justify-content-end gap-2">
-                                    <button type="button" class="btn btn-danger btn-sm"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
-                                </div>
-                            </form>
+                            <div class="input-group mb-3">
+                                <input type="color" name="pallet_picker" value="{{ $color->palette }}"
+                                    id="pallet_picker_{{ $color->id }}" class="form-control form-control-color"
+                                    style="max-width: 60px;">
+                                <input type="text" name="palette" class="form-control"
+                                    id="palette_{{ $color->id }}" value="{{ $color->palette }}" required>
+                            </div>
                         </div>
-                    </div>
+                        <div class="modal-footer d-flex justify-content-end gap-2">
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         @endforeach
 
         <script>
-            document.querySelectorAll('input[type="file"]').forEach(input => {
-                input.addEventListener("change", function(event) {
-                    let file = event.target.files[0];
-                    if (file) {
-                        let reader = new FileReader();
-                        reader.onload = function(e) {
-                            let preview = event.target.closest('.modal-content').querySelector(
-                                '.imagePreviewEdit');
-                            if (preview) {
-                                preview.src = e.target.result;
-                                preview.style.display = "block";
+            document.addEventListener('DOMContentLoaded', function() {
+                // Untuk form ADD
+                const addPicker = document.getElementById('pallet_picker_add');
+                const addInput = document.getElementById('palette_add');
+
+                if (addPicker && addInput) {
+                    addPicker.addEventListener('input', function() {
+                        addInput.value = this.value;
+                    });
+
+                    addInput.addEventListener('input', function() {
+                        if (/^#([0-9A-Fa-f]{6})$/.test(this.value)) {
+                            addPicker.value = this.value;
+                        }
+                    });
+                }
+
+                // Untuk semua form EDIT
+                @foreach ($data as $color)
+                    const picker{{ $color->id }} = document.getElementById('pallet_picker_{{ $color->id }}');
+                    const input{{ $color->id }} = document.getElementById('palette_{{ $color->id }}');
+
+                    if (picker{{ $color->id }} && input{{ $color->id }}) {
+                        picker{{ $color->id }}.addEventListener('input', function() {
+                            input{{ $color->id }}.value = this.value;
+                        });
+
+                        input{{ $color->id }}.addEventListener('input', function() {
+                            if (/^#([0-9A-Fa-f]{6})$/.test(this.value)) {
+                                picker{{ $color->id }}.value = this.value;
                             }
-                        };
-                        reader.readAsDataURL(file);
+                        });
                     }
-                });
+                @endforeach
             });
         </script>
 

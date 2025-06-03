@@ -34,13 +34,8 @@ class ColorController extends Controller
     {
         $validate = $request->validate([
             'color' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'palette' => 'required'
         ]);
-
-        if ($request->hasFile('image')) {
-            $validate['image'] = $request->file('image')->store('colors', 'public');
-        }
-
 
         Color::create($validate);
 
@@ -69,13 +64,9 @@ class ColorController extends Controller
     public function update(Request $request, Color $color)
     {
         $validate = $request->validate([
-            'color' => 'required'
+            'color' => 'required',
+            'palette' => 'required'
         ]);
-
-        if ($request->hasFile('image')) {
-            Storage::disk('public')->delete($color->image);
-            $validate['image'] = $request->file('image')->store('colors', 'public');
-        }
 
         $color->update($validate);
 

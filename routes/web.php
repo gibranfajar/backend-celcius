@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard/filter', [AuthenticationController::class, 'filterDashboard']);
 
     Route::resource('pagehomes', PageHomeController::class);
+    Route::get('woman', [PageHomeController::class, 'woman'])->name('pagehomes.woman');
 
     Route::resource('categories', CategoryController::class);
 

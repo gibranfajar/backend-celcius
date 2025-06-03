@@ -33,14 +33,10 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'type' => 'required'
         ]);
 
         Category::create([
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'type' => $request->type,
-            'master' => $request->master
         ]);
 
         return redirect()->route('categories.index')->with('success', 'Category created successfully');
@@ -69,14 +65,10 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'type' => 'required'
         ]);
 
         $category->update([
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'type' => $request->type,
-            'master' => $request->master
         ]);
 
         return redirect()->route('categories.index')->with('success', 'Category updated successfully');

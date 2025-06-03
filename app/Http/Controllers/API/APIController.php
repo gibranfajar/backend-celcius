@@ -20,24 +20,9 @@ class APIController extends Controller
 {
     public function pagehomes()
     {
-        $pagehomes = PageHome::find(1)->first();
+        $pagehomes = PageHome::all();
         return response()->json([
-            'data' => [
-                'titleBannerTop' => $pagehomes->title_bannertop,
-                'titleUrlTopLeft' => $pagehomes->toptitleurl_left,
-                'urlTopLeft' => $pagehomes->topurl_left,
-                'titleUrlTopRight' => $pagehomes->toptitleurl_right,
-                'urlTopRight' => $pagehomes->topurl_right,
-                'desktopBannerTop' => $pagehomes->bannertop_desktop_image,
-                'mobileBannerTop' => $pagehomes->bannertop_mobile_image,
-                'titleBannerBottom' => $pagehomes->title_bannertop,
-                'titleUrlBottomLeft' => $pagehomes->bottomtitleurl_left,
-                'urlBottomLeft' => $pagehomes->bottomurl_left,
-                'titleUrlBottomRight' => $pagehomes->bottomtitleurl_right,
-                'urlBottomRight' => $pagehomes->bottomurl_right,
-                'desktopBannerBottom' => $pagehomes->bannerbottom_desktop_image,
-                'mobileBannerBottom' => $pagehomes->bannerbottom_mobile_image
-            ]
+            'data' => $pagehomes
         ]);
     }
 

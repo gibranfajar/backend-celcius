@@ -6,12 +6,30 @@
                 <span>Dashboard</span>
             </a>
         </li>
+
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('pagehomes.*') ? '' : 'collapsed' }} "
-                href="{{ route('pagehomes.index') }}">
+            <a class="nav-link {{ request()->routeIs('pagehomes.*') ? '' : 'collapsed' }}"
+                data-bs-target="#components-nav-pagehome" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-grid"></i>
                 <span>UI Homes</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
             </a>
+            <ul id="components-nav-pagehome"
+                class="nav-content collapse {{ request()->routeIs('pagehomes.*') ? 'show' : '' }}"
+                data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('pagehomes.index') }}"
+                        class="{{ request()->routeIs('pagehomes.index') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>Men</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('pagehomes.woman') }}"
+                        class="{{ request()->routeIs('pagehomes.woman') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>Women</span>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('categories.*') ? '' : 'collapsed' }} "

@@ -13,20 +13,12 @@ return new class extends Migration
     {
         Schema::create('page_homes', function (Blueprint $table) {
             $table->id();
-            $table->string('title_bannertop');
+            $table->string('title');
             $table->string('bannertop_desktop_image');
             $table->string('bannertop_mobile_image');
-            $table->string('toptitleurl_left');
-            $table->string('topurl_left');
-            $table->string('toptitleurl_right');
-            $table->string('topurl_right');
-            $table->string('title_bannerbottom');
             $table->string('bannerbottom_desktop_image');
             $table->string('bannerbottom_mobile_image');
-            $table->string('bottomtitleurl_left');
-            $table->string('bottomurl_left');
-            $table->string('bottomtitleurl_right');
-            $table->string('bottomurl_right');
+            $table->string('type');
             $table->timestamps();
         });
     }
